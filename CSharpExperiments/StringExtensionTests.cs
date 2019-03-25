@@ -3,11 +3,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace CSharpExperiments
 {
     [TestClass]
-    public class UnitTest1
+    public class StringExtensionTests
     {
         [TestMethod]
-        public void TestMethod1()
+        public void ExtractNumberTest()
         {
+            var val = "";
+            val.ExtractLetters();
         }
     }
 }
