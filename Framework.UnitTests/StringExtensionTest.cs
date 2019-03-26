@@ -8,7 +8,7 @@ namespace Framework.UnitTests
     [TestClass]
     public class StringExtensionTest
     {
-        [TestMethod]
+        [TestMethod,TestCategory("StringExtension")]
         public void ExtractNumberTest()
         {
             var text = "anoopsimon90";
@@ -16,6 +16,9 @@ namespace Framework.UnitTests
 
             var number = "1234";
             number.ExtractNumbers().Should().Be(1234);
+
+            var alphaNumberic = "12Makes36";
+            alphaNumberic.ExtractNumbers().Should().Be(1236);
         }
     }
 }
