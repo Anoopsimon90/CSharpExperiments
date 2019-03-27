@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -19,11 +20,18 @@ namespace Framework.Core
         /// <returns></returns>
         public static string ExtractLetters(this string str)
         {
-            return Regex.Replace(str, @"[^A-Z]+", string.Empty);
+            try
+            {
+                return new string(str.Where(char.IsLetter).ToArray()).Trim();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         /// <summary>
-        /// 
+        /// Extract only numbers from a String
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
@@ -37,6 +45,40 @@ namespace Framework.Core
             {
                 return 0;
             }
+        }
+
+        /// <summary>
+        /// To convert a String to double
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="throwExceptionIfFailed"></param>
+        /// <returns></returns>
+        public static double ToDouble(this string str, bool throwExceptionIfFailed = false)
+        {
+            double result;
+            var valid = double.TryParse(str, NumberStyles.AllowDecimalPoint,
+              new NumberFormatInfo { NumberDecimalSeparator = "." }, out result);
+            if (!valid)
+                if (throwExceptionIfFailed)
+                    throw new FormatException(string.Format("'{0}' Can't be convered to Double", str));
+
+            return result;
+        }
+
+        /// <summary>
+        /// To convert a String to Date
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="throwExceptionIfFailed"></param>
+        /// <returns></returns>
+        public static DateTime ToDate(this string input, bool throwExceptionIfFailed = false)
+        {
+            DateTime result;
+            var valid = DateTime.TryParse(input, out result);
+            if (!valid)
+                if (throwExceptionIfFailed)
+                    throw new FormatException(string.Format("'{0}' cannot be converted as DateTime", input));
+            return result;
         }
     }
 }
