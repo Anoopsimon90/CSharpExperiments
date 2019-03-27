@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Framework.Core.Utils
 {
-    class RestApiUtil
+    public class RestApiUtil
     {
+
     }
 }
